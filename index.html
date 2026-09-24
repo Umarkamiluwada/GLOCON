@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<title>GLOCON — Global Connect</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192-2.png">
+<link rel="apple-touch-icon" href="icon-192-2.png">
+<meta name="theme-color" content="#0a1220">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<div id="app">
+
+  <!-- ===================== SPLASH ===================== -->
+  <section id="screen-splash" class="screen active">
+    <div class="splash-wrap">
+      <img src="icon-192-2.png" alt="GLOCON" class="splash-icon">
+      <div class="splash-name">GLOCON</div>
+    </div>
+  </section>
+
+  <!-- ===================== LOGIN ===================== -->
+  <section id="screen-login" class="screen">
+    <div class="auth-wrap">
+      <div class="auth-logo">
+        <img src="icon-192-2.png" alt="GLOCON">
+        <div class="name">GLOCON</div>
+        <div class="tag" data-i18n="tagline">Global Connect — People · Communities · Opportunities</div>
+      </div>
+      <div id="login-error" class="error-box"></div>
+      <div class="field">
+        <label data-i18n="email">Email</label>
+        <input type="email" id="login-email" autocomplete="email" placeholder="you@example.com">
+      </div>
+      <div class="field">
+        <label data-i18n="password">Password</label>
+        <input type="password" id="login-password" autocomplete="current-password" placeholder="••••••••">
+      </div>
+      <button class="btn btn-primary" id="login-btn" data-i18n="login">Log In</button>
+      <div class="auth-switch">
+        <span data-i18n="no_account">Don't have an account?</span>
+        <button id="go-signup" data-i18n="signup">Sign Up</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SIGNUP ===================== -->
+  <section id="screen-signup" class="screen">
+    <div class="auth-wrap">
+      <div class="auth-logo">
+        <img src="icon-192-2.png" alt="GLOCON">
+        <div class="name">GLOCON</div>
+        <div class="tag" data-i18n="create_account">Create your account</div>
+      </div>
+      <div id="signup-error" class="error-box"></div>
+
+      <div class="field">
+        <label data-i18n="language">Language / Langue / اللغة / Harshe</label>
+        <select id="su-language">
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+          <option value="ha">Hausa</option>
+          <option value="ar">العربية (Arabic)</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label data-i18n="country">Country</label>
+        <select id="su-country">
+          <option value="">-- select --</option>
+          <option value="Nigeria" selected>Nigeria</option>
+              <option value="Afghanistan">Afghanistan</option>
+              <option value="Algeria">Algeria</option>
+              <option value="Argentina">Argentina</option>
+              <option value="Australia">Australia</option>
+              <option value="Austria">Austria</option>
+              <option value="Bangladesh">Bangladesh</option>
+              <option value="Belgium">Belgium</option>
+              <option value="Benin">Benin</option>
+              <option value="Brazil">Brazil</option>
+              <option value="Burkina Faso">Burkina Faso</option>
+              <option value="Cameroon">Cameroon</option>
+              <option value="Canada">Canada</option>
+              <option value="Chad">Chad</option>
+              <option value="Chile">Chile</option>
+              <option value="China">China</option>
+              <option value="Colombia">Colombia</option>
+              <option value="Democratic Republic of Congo">Democratic Republic of Congo</option>
+              <option value="Egypt">Egypt</option>
+              <option value="Ethiopia">Ethiopia</option>
+              <option value="France">France</option>
+              <option value="Gabon">Gabon</option>
+              <option value="Gambia">Gambia</option>
+              <option value="Germany">Germany</option>
+              <option value="Ghana">Ghana</option>
+              <option value="Guinea">Guinea</option>
+              <option value="India">India</option>
+              <option value="Indonesia">Indonesia</option>
+              <option value="Iran">Iran</option>
+              <option value="Iraq">Iraq</option>
+              <option value="Italy">Italy</option>
+              <option value="Ivory Coast">Ivory Coast</option>
+              <option value="Japan">Japan</option>
+              <option value="Jordan">Jordan</option>
+              <option value="Kenya">Kenya</option>
+              <option value="Kuwait">Kuwait</option>
+              <option value="Lebanon">Lebanon</option>
+              <option value="Liberia">Liberia</option>
+              <option value="Libya">Libya</option>
+              <option value="Malaysia">Malaysia</option>
+              <option value="Mali">Mali</option>
+              <option value="Mauritania">Mauritania</option>
+              <option value="Mexico">Mexico</option>
+              <option value="Morocco">Morocco</option>
+              <option value="Netherlands">Netherlands</option>
+              <option value="Niger">Niger</option>
+              <option value="Nigeria">Nigeria</option>
+              <option value="Pakistan">Pakistan</option>
+              <option value="Philippines">Philippines</option>
+              <option value="Qatar">Qatar</option>
+              <option value="Russia">Russia</option>
+              <option value="Rwanda">Rwanda</option>
+              <option value="Saudi Arabia">Saudi Arabia</option>
+              <option value="Senegal">Senegal</option>
+              <option value="Sierra Leone">Sierra Leone</option>
+              <option value="Somalia">Somalia</option>
+              <option value="South Africa">South Africa</option>
+              <option value="South Korea">South Korea</option>
+              <option value="Spain">Spain</option>
+              <option value="Sudan">Sudan</option>
+              <option value="Sweden">Sweden</option>
+              <option value="Switzerland">Switzerland</option>
+              <option value="Syria">Syria</option>
+              <option value="Tanzania">Tanzania</option>
+              <option value="Thailand">Thailand</option>
+              <option value="Togo">Togo</option>
+              <option value="Tunisia">Tunisia</option>
+              <option value="Turkey">Turkey</option>
+              <option value="Uganda">Uganda</option>
+              <option value="Ukraine">Ukraine</option>
+              <option value="United Arab Emirates">United Arab Emirates</option>
+              <option value="United Kingdom">United Kingdom</option>
+              <option value="United States">United States</option>
+              <option value="Yemen">Yemen</option>
+              <option value="Zambia">Zambia</option>
+              <option value="Zimbabwe">Zimbabwe</option>
+        </select>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label data-i18n="first_name">First name</label>
+          <input type="text" id="su-first-name" autocomplete="given-name">
+        </div>
+        <div class="field">
+          <label data-i18n="last_name">Last name</label>
+          <input type="text" id="su-last-name" autocomplete="family-name">
+        </div>
+      </div>
+
+      <div class="field">
+        <label data-i18n="username">Username</label>
+        <input type="text" id="su-username" autocomplete="off" placeholder="e.g. umarkw">
+      </div>
+
+      <div class="field">
+        <label data-i18n="email">Email</label>
+        <input type="email" id="su-email" autocomplete="email" placeholder="you@example.com">
+      </div>
+
+      <div class="field">
+        <label data-i18n="phone">Phone number</label>
+        <input type="tel" id="su-phone" autocomplete="tel" placeholder="+234...">
+      </div>
+
+      <div class="field">
+        <label data-i18n="password">Password</label>
+        <input type="password" id="su-password" autocomplete="new-password">
+      </div>
+
+      <div class="field">
+        <label data-i18n="confirm_password">Confirm password</label>
+        <input type="password" id="su-confirm-password" autocomplete="new-password">
+      </div>
+
+      <button class="btn btn-primary" id="signup-btn" data-i18n="signup">Sign Up</button>
+      <div class="auth-switch">
+        <span data-i18n="have_account">Already have an account?</span>
+        <button id="go-login" data-i18n="login">Log In</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FEED ===================== -->
+  <section id="screen-feed" class="screen">
+    <div class="topbar">
+      <div class="topbar-title"><span class="g">GLOCON</span></div>
+      <div class="topbar-actions">
+        <button class="topbar-back" data-nav="search"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <button class="topbar-back" data-nav="notifications" style="position:relative;">
+          <i class="fa-solid fa-bell"></i><span id="notif-badge" class="count-badge hidden">0</span>
+        </button>
+      </div>
+    </div>
+    <div id="stories-row" class="stories-row"></div>
+    <input type="file" id="story-upload-input" accept="image/*,video/*" style="display:none;">
+    <div id="feed-list" style="margin-top:8px;"></div>
+  </section>
+
+  <!-- ===================== NOTIFICATIONS ===================== -->
+  <section id="screen-notifications" class="screen">
+    <div class="topbar">
+      <button class="topbar-back" data-nav="feed">‹</button>
+      <div class="topbar-title" style="font-size:17px;" data-i18n="notifications">Notifications</div>
+      <div style="width:24px;"></div>
+    </div>
+    <div id="notifications-list"></div>
+  </section>
+
+  <!-- ===================== POST DETAIL (from notifications) ===================== -->
+  <section id="screen-post-detail" class="screen">
+    <div class="topbar">
+      <button class="topbar-back" data-nav="notifications">‹</button>
+      <div class="topbar-title" style="font-size:17px;" data-i18n="post">Post</div>
+      <div style="width:24px;"></div>
+    </div>
+    <div id="post-detail-container"></div>
+  </section>
+
+  <!-- ===================== CREATE POST ===================== -->
+  <section id="screen-create" class="screen">
+    <div class="topbar">
+      <button class="topbar-back" data-nav="feed">‹</button>
+      <div class="topbar-title" style="font-size:17px;" data-i18n="create_post">Create Post</div>
+      <div style="width:24px;"></div>
+    </div>
+    <div style="margin-top:8px;">
+      <div class="composer">
+        <div class="avatar" id="create-avatar"></div>
+        <textarea id="post-caption" data-i18n-ph="whats_on_mind" placeholder="What's on your mind?"></textarea>
+      </div>
+      <input type="file" id="post-photo-input" accept="image/*" style="display:none;">
+      <input type="file" id="post-video-input" accept="video/*" style="display:none;">
+      <div class="photo-picker-row">
+        <div class="photo-picker" id="photo-picker-btn" data-i18n="add_photo">📷 Add a photo</div>
+        <div class="photo-picker" id="video-picker-btn" data-i18n="add_video">🎬 Add a video (Reel)</div>
+      </div>
+      <div class="photo-preview-wrap" id="photo-preview-wrap" style="display:none;">
+        <img class="photo-preview" id="photo-preview">
+        <button class="photo-remove" id="photo-remove">✕</button>
+      </div>
+      <div class="photo-preview-wrap" id="video-preview-wrap" style="display:none;">
+        <video class="photo-preview" id="video-preview" muted playsinline controls></video>
+        <button class="photo-remove" id="video-remove">✕</button>
+      </div>
+      <button class="btn btn-primary" id="publish-btn" data-i18n="post">Post</button>
+    </div>
+  </section>
+
+  <!-- ===================== PROFILE ===================== -->
+  <section id="screen-profile" class="screen">
+    <div class="topbar">
+      <div class="topbar-title" style="font-size:17px;" data-i18n="profile">Profile</div>
+      <button class="topbar-back" data-nav="settings" title="Settings"><i class="fa-solid fa-gear"></i></button>
+    </div>
+    <div class="profile-head">
+      <div class="profile-avatar-wrap">
+        <div class="avatar" id="profile-avatar" style="width:92px;height:92px;font-size:30px;"></div>
+        <button class="avatar-edit-btn" id="avatar-edit-btn">✎</button>
+        <input type="file" id="avatar-input" accept="image/*" style="display:none;">
+      </div>
+      <div class="profile-name" id="profile-name">—</div>
+      <div class="profile-username" id="profile-username">@—</div>
+      <div class="profile-meta" id="profile-meta">—</div>
+      <div class="profile-stats">
+        <div class="stat"><div class="num" id="stat-posts">0</div><div class="label" data-i18n="posts">Posts</div></div>
+        <div class="stat" data-stat="followers" id="stat-followers-box"><div class="num" id="stat-followers">0</div><div class="label" data-i18n="followers">Followers</div></div>
+        <div class="stat" data-stat="following" id="stat-following-box"><div class="num" id="stat-following">0</div><div class="label" data-i18n="following">Following</div></div>
+        <div class="stat" data-stat="friends" id="stat-friends-box"><div class="num" id="stat-friends">0</div><div class="label" data-i18n="friends">Friends</div></div>
+      </div>
+    </div>
+    <div class="section-title" data-i18n="your_posts">Your Posts</div>
+    <div id="profile-posts"></div>
+  </section>
+
+  <!-- ===================== CHAT LIST ===================== -->
+  <section id="screen-chat" class="screen">
+    <div class="topbar">
+      <div class="topbar-title" style="font-size:17px;" data-i18n="chat">Chat</div>
+      <button class="topbar-back" id="new-chat-btn" title="New chat">➕</button>
+    </div>
+    <div class="new-chat-box hidden" id="new-chat-box">
+      <input type="text" id="new-chat-search" data-i18n-ph="search_by_username" placeholder="Search by username…">
+      <div id="new-chat-results"></div>
+    </div>
+    <div id="conversation-list"></div>
+  </section>
+
+  <!-- ===================== CHAT CONVERSATION ===================== -->
+  <section id="screen-conversation" class="screen">
+    <div class="topbar">
+      <button class="topbar-back" data-nav="chat">‹</button>
+      <div class="conv-header-block">
+        <div class="topbar-title" id="conversation-name" style="font-size:16px;">—</div>
+        <div id="conversation-status" class="conv-status hidden"></div>
+      </div>
+      <div style="width:24px;"></div>
+    </div>
+    <div id="messages-list" class="messages-list"></div>
+    <div class="message-compose">
+      <input type="text" id="message-input" data-i18n-ph="type_message" placeholder="Type a message…">
+      <button id="message-send">➤</button>
+    </div>
+  </section>
+
+  <!-- ===================== REELS ===================== -->
+  <section id="screen-reels" class="screen reels-screen">
+    <div class="reels-tabs">
+      <button class="reel-tab active" data-reel-tab="foryou" data-i18n="for_you">For You</button>
+      <button class="reel-tab" data-reel-tab="following" data-i18n="following">Following</button>
+      <button class="reel-tab" data-reel-tab="friends" data-i18n="friends">Friends</button>
+    </div>
+    <div id="reels-feed" class="reels-feed"></div>
+  </section>
+
+  <!-- ===================== USER PROFILE (someone else) ===================== -->
+  <section id="screen-user-profile" class="screen">
+    <div class="topbar">
+      <button class="topbar-back" data-nav="feed">‹</button>
+      <div class="topbar-title" style="font-size:17px;" data-i18n="profile">Profile</div>
+      <div style="width:24px;"></div>
+    </div>
+    <div class="profile-header">
+      <div class="avatar profile-avatar-lg" id="user-profile-avatar"></div>
+      <div class="profile-name" id="user-profile-name">—</div>
+      <div class="profile-username" id="user-profile-username">@—</div>
+      <div class="profile-meta" id="user-profile-meta">—</div>
+      <div class="profile-stats">
+        <div class="stat"><div class="num" id="user-stat-posts">0</div><div class="label" data-i18n="posts">Posts</div></div>
+        <div class="stat" data-stat="followers" id="user-stat-followers-box"><div class="num" id="user-stat-followers">0</div><div class="label" data-i18n="followers">Followers</div></div>
+        <div class="stat" data-stat="following" id="user-stat-following-box"><div class="num" id="user-stat-following">0</div><div class="label" data-i18n="following">Following</div></div>
+        <div class="stat" data-stat="friends" id="user-stat-friends-box"><div class="num" id="user-stat-friends">0</div><div class="label" data-i18n="friends">Friends</div></div>
+      </div>
+      <div class="profile-header-actions">
+        <button class="btn-outline" id="user-profile-follow-btn" data-i18n="follow">Follow</button>
+        <button class="btn-outline" id="user-profile-message-btn" data-i18n="chat">Chat</button>
+        <button class="btn-outline btn-icon-only" id="user-profile-report-btn" title="Report">🚩</button>
+      </div>
+    </div>
+    <div class="profile-posts">
+      <h3 class="section-label" data-i18n="posts">Posts</h3>
+      <div id="user-profile-post-list"></div>
+    </div>
+  </section>
+
+  <!-- ===================== STORY VIEWER (fullscreen) ===================== -->
+  <section id="screen-story-viewer" class="screen story-viewer-screen">
+    <div class="story-progress" id="story-progress"></div>
+    <div class="story-header">
+      <div class="avatar" id="story-viewer-avatar"></div>
+      <div class="story-viewer-meta">
+        <div class="story-viewer-name" id="story-viewer-name">—</div>
+        <div class="story-viewer-time" id="story-viewer-time"></div>
+      </div>
+      <button class="story-close" id="story-close-btn">✕</button>
+    </div>
+    <div class="story-media-wrap" id="story-media-wrap"></div>
+    <div class="story-nav-left" id="story-nav-left"></div>
+    <div class="story-nav-right" id="story-nav-right"></div>
+  </section>
+
+  <!-- ===================== PEOPLE SEARCH (from dashboard) ===================== -->
+  <section id="screen-search" class="screen">
+    <div class="topbar">
+      <button class="topbar-back" data-nav="feed">‹</button>
+      <div class="topbar-title" style="font-size:17px;" data-i18n="search_people">Search People</div>
+      <div style="width:24px;"></div>
+    </div>
+    <div class="new-chat-box" style="padding:0 16px 12px;">
+      <input type="text" id="global-search-input" data-i18n-ph="search_by_username" placeholder="Search by username…">
+    </div>
+    <div id="global-search-results"></div>
+  </section>
+
+  <!-- ===================== WALLET ===================== -->
+  <section id="screen-wallet" class="screen">
+    <div class="topbar">
+      <button class="topbar-back" data-nav="settings">‹</button>
+      <div class="topbar-title" style="font-size:17px;" data-i18n="wallet">GLOCOIN Wallet</div>
+      <div style="width:24px;"></div>
+    </div>
+    <div class="wallet-balance-card">
+      <div class="wallet-balance-label" data-i18n="your_balance">Your Balance</div>
+      <div class="wallet-balance-amount"><span id="wallet-balance">0</span> <span class="coin-unit">GLOCOIN</span></div>
+      <div class="wallet-actions-row">
+        <button class="btn-outline" data-nav="buy-coins" data-i18n="buy_coins">Buy Coins</button>
+        <button class="btn-outline" data-nav="cashout-coins" data-i18n="cash_out">Cash Out</button>
+      </div>
+    </div>
+    <div class="wallet-perks">
+      <button class="settings-row" id="wallet-verify-btn">
+        <span data-i18n="buy_verify_badge">Get Verify Badge</span>
+        <span class="coin-cost" id="wallet-verify-cost">— GLOCOIN</span>
+      </button>
+    </div>
+    <div class="settings-section-label" data-i18n="transaction_history">Transaction History</div>
+    <div id="wallet-tx-list"></div>
+  </section>
+
+  <!-- ===================== BUY COINS ===================== -->
+  <section id="screen-buy-coins" class="screen">
+    <div class="topbar">
+      <button class="topbar-back" data-nav="wallet">‹</button>
+      <div class="topbar-title" style="font-size:17px;" data-i18n="buy_coins">Buy Coins</div>
+      <div style="width:24px;"></div>
+    </div>
+    <div class="create-body">
+      <p class="muted" id="buy-rate-hint"></p>
+      <label data-i18n="naira_amount">Amount (₦)</label>
+      <input type="number" id="buy-naira-input" min="0" step="1">
+      <p class="muted" id="buy-coins-preview"></p>
+      <label data-i18n="payment_proof">Payment proof (screenshot)</label>
+      <div class="photo-picker" id="buy-proof-picker-btn" data-i18n="add_photo">📷 Add a photo</div>
+      <input type="file" id="buy-proof-input" accept="image/*" style="display:none;">
+      <img id="buy-proof-preview" class="photo-preview hidden">
+      <button class="btn btn-primary" id="submit-buy-btn" data-i18n="submit_request">Submit Request</button>
+    </div>
+  </section>
+
+  <!-- ===================== CASH OUT COINS ===================== -->
+  <section id="screen-cashout-coins" class="screen">
+    <div class="topbar">
+      <button class="topbar-back" data-nav="wallet">‹</button>
+      <div class="topbar-title" style="font-size:17px;" data-i18n="cash_out">Cash Out</div>
+      <div style="width:24px;"></div>
+    </div>
+    <div class="create-body">
+      <p class="muted" id="cashout-rate-hint"></p>
+      <label data-i18n="coin_amount">Amount (GLOCOIN)</label>
+      <input type="number" id="cashout-coins-input" min="0" step="1">
+      <p class="muted" id="cashout-naira-preview"></p>
+      <label data-i18n="bank_name">Bank name</label>
+      <input type="text" id="cashout-bank-input">
+      <label data-i18n="account_number">Account number</label>
+      <input type="text" id="cashout-account-number-input">
+      <label data-i18n="account_name">Account name</label>
+      <input type="text" id="cashout-account-name-input">
+      <button class="btn btn-primary" id="submit-cashout-btn" data-i18n="submit_request">Submit Request</button>
+    </div>
+  </section>
+
+  <!-- ===================== ADMIN DASHBOARD ===================== -->
+  <section id="screen-admin-dashboard" class="screen">
+    <div class="topbar">
+      <button class="topbar-back" data-nav="settings">‹</button>
+      <div class="topbar-title" style="font-size:17px;">🛡️ Admin</div>
+      <div style="width:24px;"></div>
+    </div>
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-admin-tab="overview">Overview</button>
+      <button class="admin-tab" data-admin-tab="users">Users</button>
+      <button class="admin-tab" data-admin-tab="purchases">Buy Requests</button>
+      <button class="admin-tab" data-admin-tab="cashouts">Cash-outs</button>
+      <button class="admin-tab" data-admin-tab="reports">Reports</button>
+      <button class="admin-tab" data-admin-tab="posts">Posts</button>
+      <button class="admin-tab" data-admin-tab="coinsettings">Coin Settings</button>
+    </div>
+    <div id="admin-content"></div>
+  </section>
+
+  <!-- ===================== SETTINGS ===================== -->
+  <section id="screen-settings" class="screen">
+    <div class="topbar">
+      <button class="topbar-back" data-nav="profile">‹</button>
+      <div class="topbar-title" style="font-size:17px;" data-i18n="settings">Settings</div>
+      <div style="width:24px;"></div>
+    </div>
+    <div class="settings-list">
+      <div class="settings-section-label" data-i18n="account">Account</div>
+      <button class="settings-row" data-nav="wallet">
+        <span data-i18n="wallet">GLOCOIN Wallet</span><span class="chev">›</span>
+      </button>
+      <button class="settings-row" data-nav="edit-profile">
+        <span data-i18n="edit_profile">Edit Profile</span><span class="chev">›</span>
+      </button>
+      <button class="settings-row" data-nav="change-password">
+        <span data-i18n="change_password">Change Password</span><span class="chev">›</span>
+      </button>
+
+      <div class="settings-section-label" data-i18n="preferences">Preferences</div>
+      <div class="settings-row">
+        <span data-i18n="language">Language</span>
+        <select id="settings-language-select" class="settings-inline-select">
+          <option value="en">English</option>
+          <option value="fr">Français</option>
+          <option value="ha">Hausa</option>
+          <option value="ar">العربية</option>
+        </select>
+      </div>
+      <div class="settings-row">
+        <span data-i18n="appearance">Appearance</span>
+        <label class="switch">
+          <input type="checkbox" id="settings-dark-toggle" checked>
+          <span class="switch-track"></span>
+        </label>
+      </div>
+      <div class="settings-row">
+        <span data-i18n="notifications">Notifications</span>
+        <label class="switch">
+          <input type="checkbox" id="settings-notif-toggle">
+          <span class="switch-track"></span>
+        </label>
+      </div>
+
+      <div class="settings-section-label" data-i18n="about">About</div>
+      <button class="settings-row" data-nav="about-glocon">
+        <span data-i18n="about_glocon">About GLOCON</span><span class="chev">›</span>
+      </button>
+
+      <button class="settings-row hidden" id="admin-dashboard-link" data-nav="admin-dashboard">
+        <span data-i18n="admin_dashboard">🛡️ Admin Dashboard</span><span class="chev">›</span>
+      </button>
+
+      <button class="settings-row danger" id="settings-logout-btn">
+        <span data-i18n="logout">Log Out</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===================== EDIT PROFILE ===================== -->
+  <section id="screen-edit-profile" class="screen">
+    <div class="topbar">
+      <button class="topbar-back" data-nav="settings">‹</button>
+      <div class="topbar-title" style="font-size:17px;" data-i18n="edit_profile">Edit Profile</div>
+      <button class="btn-small" id="save-profile-btn" data-i18n="save">Save</button>
+    </div>
+    <div class="create-body">
+      <label data-i18n="first_name">First name</label>
+      <input type="text" id="edit-first-name">
+      <label data-i18n="last_name">Last name</label>
+      <input type="text" id="edit-last-name">
+      <label data-i18n="phone">Phone number</label>
+      <input type="tel" id="edit-phone">
+      <label data-i18n="country">Country</label>
+      <select id="edit-country"></select>
+      <label data-i18n="bio">Bio</label>
+      <textarea id="edit-bio" rows="3"></textarea>
+    </div>
+  </section>
+
+  <!-- ===================== CHANGE PASSWORD ===================== -->
+  <section id="screen-change-password" class="screen">
+    <div class="topbar">
+      <button class="topbar-back" data-nav="settings">‹</button>
+      <div class="topbar-title" style="font-size:17px;" data-i18n="change_password">Change Password</div>
+      <div style="width:24px;"></div>
+    </div>
+    <div class="create-body">
+      <label data-i18n="new_password">New password</label>
+      <input type="password" id="new-password-input" minlength="6">
+      <label data-i18n="confirm_password">Confirm password</label>
+      <input type="password" id="confirm-new-password-input" minlength="6">
+      <button class="btn btn-primary" id="update-password-btn" data-i18n="save">Save</button>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT GLOCON ===================== -->
+  <section id="screen-about-glocon" class="screen">
+    <div class="topbar">
+      <button class="topbar-back" data-nav="settings">‹</button>
+      <div class="topbar-title" style="font-size:17px;" data-i18n="about_glocon">About GLOCON</div>
+      <div style="width:24px;"></div>
+    </div>
+    <div class="about-body">
+      <div class="brand-icon" style="margin:20px auto;"><span>G</span></div>
+      <h2 style="text-align:center;">GLOCON</h2>
+      <p style="text-align:center;color:var(--text-dim);" data-i18n="tagline">Global Connect — People · Communities · Opportunities</p>
+      <p style="text-align:center;color:var(--text-faint);font-size:12.5px;margin-top:20px;">Version 1.0</p>
+    </div>
+  </section>
+
+  <!-- ===================== USER LIST (followers / following / friends) ===================== -->
+  <section id="screen-user-list" class="screen">
+    <div class="topbar">
+      <button class="topbar-back" id="user-list-back">‹</button>
+      <div class="topbar-title" id="user-list-title" style="font-size:17px;">—</div>
+      <div style="width:24px;"></div>
+    </div>
+    <div id="user-list-container"></div>
+  </section>
+
+  <!-- ===================== BOTTOM NAV ===================== -->
+  <div class="bottom-nav" id="bottom-nav">
+    <button data-nav="feed"><span class="ic"><i class="fa-solid fa-house"></i></span><span data-i18n="home">Home</span></button>
+    <button data-nav="reels"><span class="ic"><i class="fa-solid fa-clapperboard"></i></span><span data-i18n="reels">Reels</span></button>
+    <button data-nav="create"><span class="ic"><i class="fa-solid fa-square-plus"></i></span><span data-i18n="post">Post</span></button>
+    <button data-nav="chat"><span class="ic"><i class="fa-solid fa-comment"></i><span id="chat-badge" class="count-badge hidden">0</span></span><span data-i18n="chat">Chat</span></button>
+    <button data-nav="profile"><span class="ic"><i class="fa-solid fa-circle-user"></i></span><span data-i18n="profile">Profile</span></button>
+  </div>
+
+  <!-- ===================== REPORT MODAL ===================== -->
+  <div id="report-modal" class="modal-overlay hidden">
+    <div class="modal-box">
+      <h3 data-i18n="report_reason_title">Why are you reporting this?</h3>
+      <button class="report-reason-btn" data-reason="spam" data-i18n="reason_spam">Spam</button>
+      <button class="report-reason-btn" data-reason="nudity" data-i18n="reason_nudity">Nudity or sexual content</button>
+      <button class="report-reason-btn" data-reason="harassment" data-i18n="reason_harassment">Harassment or bullying</button>
+      <button class="report-reason-btn" data-reason="fake" data-i18n="reason_fake">Fake account</button>
+      <button class="report-reason-btn" data-reason="other" data-i18n="reason_other">Other</button>
+      <button class="btn-outline" id="report-cancel-btn" data-i18n="cancel">Cancel</button>
+    </div>
+  </div>
+
+  <div class="loading-overlay" id="loading-overlay">
+    <div class="spinner"></div>
+    <div class="msg" id="loading-msg">Please wait…</div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+</div>
+<script src="i18n.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
